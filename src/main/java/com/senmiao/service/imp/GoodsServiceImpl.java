@@ -9,6 +9,7 @@ import com.senmiao.domain.Vo.SimpleGoodsVo;
 import com.senmiao.mapper.GoodsMapper;
 import com.senmiao.mapper.ImageMapper;
 import com.senmiao.service.GoodsService;
+import com.senmiao.util.MyPageInfo;
 import com.senmiao.util.RetResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,16 +51,17 @@ public class GoodsServiceImpl implements GoodsService {
     public RetResult getSimpleGoodsByCategoryId(Integer id, Integer page, Integer size) {
         //分页
         PageHelper.startPage(page,size);
-        PageInfo<SimpleGoodsVo> simpleGoodsVoPageInfo = new PageInfo<>();
         //获取该分类下的商品，并将部分信息放在简单商品类里
         List<Goods> goods = goodsMapper.selectTopGoodsByCategoryId(id);
-        ArrayList<SimpleGoodsVo> simpleGoodsVos = new ArrayList<>(goods.size());
+        PageInfo<Goods> goodsPageInfo = new PageInfo<>(goods);
+        MyPageInfo<SimpleGoodsVo> simpleGoodsVoPageInfo = new MyPageInfo<>(goodsPageInfo);
+        List<SimpleGoodsVo> simpleGoodsVos = new ArrayList<>(goods.size());
         for (Goods good : goods) {
             Image image = imageMapper.getOneImageByGoodsId(good.getId());
             simpleGoodsVos.add(new SimpleGoodsVo(good.getId(),good.getName(),good.getPrice(),image));
         }
         simpleGoodsVoPageInfo.setList(simpleGoodsVos);
-        RetResult<PageInfo<SimpleGoodsVo>> result = new RetResult<>();
+        RetResult<MyPageInfo<SimpleGoodsVo>> result = new RetResult<>();
         //根据简单商品类里的对象个数判断是否有数据
         if (simpleGoodsVos.size() < 1){
             result.setCode(401);
