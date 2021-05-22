@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--        mybatis-3-config.dtd约束文件
+            mapper是当前文件的根标签     -->
+<configuration>
+    <settings>
+        <!-- 设置mybatis输出日志 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <!--   第一种方式：type写一个类的全限定名称  可以指定一个类型    alias里面一个自定义别名-->
+        <!--<typeAlias type="com.test.domain.Student" alias="stu"></typeAlias>-->
+        <!--   建议使用：这个第二种 name里面写这个包的全限定名称   别名就是类名-->
+        <package name="com.senmiao.domain"/>
+    </typeAliases>
+
+    <mappers>
+        <!--
+        	一个mapper指定一个文件的位置。
+            resource里填写 从类路径开始的路径信息
+            从target(maven项目编译文件，如果你是java项目那就是找你的out文件)-》clasess（类路径）
+        -->
+        <!--
+        	第一种方式：指定多个mapper文件，一个个指定太繁琐，推荐使用第二种方式
+        -->
+        <!--<mapper resource="com/test/dao/StduentDao.xml"/>-->
+        <!--<mapper resource="com/test/dao/rj191Dao.xml"/>-->
+        <!--
+        	第二种方式：使用包名
+            name：xml文件(mapper文件)所在的包名
+            这个包中的所有xml文件一次都能加载给mybatis
+            使用package的要求：
+                1.mapper文件名称要和接口的名称一样，区分大小写的一样
+                2.mapper文件和dao接口需要在统一目录
+        -->
+        <package name="com.senmiao.mapper"/>
+    </mappers>
+</configuration>
