@@ -33,8 +33,8 @@ public class SwaggerConfig {
     //配置swagger信息
     private ApiInfo webApiInfo(){
         return new ApiInfoBuilder()
-                .title("标题")
-                .description("描述")
+                .title("ssm项目接口文档")
+                .description("描述该项目下所有的接口信息")
                 .version("1.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
                 .build();

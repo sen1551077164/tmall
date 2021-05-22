@@ -12,6 +12,12 @@ public interface GoodsMapper {
     @Select("select id,name,price,description" +
             ",stock,material,brand,size,time" +
             ",color,age,discount,category_id as categoryId from goods " +
+            "where category_id = #{id} order by id desc")
+    List<Goods> selectTopGoodsByCategoryId(Integer id);
+
+    @Select("select id,name,price,description" +
+            ",stock,material,brand,size,time" +
+            ",color,age,discount,category_id as categoryId from goods " +
             "where id = #{id} order by id desc")
-    List<Goods> selectTopGoods(Integer id);
+    Goods selectGoodsById(Integer id);
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface ImageMapper {
     @Select("select id,url,goods_id as goodsId from image")
     List<Image> getImagesByGoodsId(Integer goodsId);
+    @Select("select id,url,goods_id as goodsId from image order by id asc limit 1")
+    Image getOneImageByGoodsId(Integer id);
 }

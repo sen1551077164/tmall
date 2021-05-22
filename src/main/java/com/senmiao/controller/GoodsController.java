@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Api("这是一个用于提供获取商品信息的接口")
+@Api(value = "这是一个用于提供获取商品信息的接口",description = "这是一个用于提供获取商品信息的接口")
 @RestController
 @RequestMapping("/goods")
 public class GoodsController {
