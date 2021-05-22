@@ -1,5 +1,6 @@
 package com.senmiao.mapper;
 
+import com.senmiao.domain.Goods;
 import com.senmiao.util.RetResult;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface GoodsMapper {
     @Select("select id,name,price,description" +
             ",stock,material,brand,size,time" +
-            ",color,age,discount from goods " +
+            ",color,age,discount,category_id as categoryId from goods " +
             "where id = #{id} order by id desc")
-    List selectTopGoods(Integer id);
+    List<Goods> selectTopGoods(Integer id);
 }

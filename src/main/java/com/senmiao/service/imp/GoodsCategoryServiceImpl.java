@@ -26,7 +26,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
             goodsCategoryVo.setName(goodsCategory.getName());
             goodsCategoryVos.add(goodsCategoryVo);
         }
-        return new RetResult<List<GoodsCategoryVo>>(200,goodsCategoryVos);
+        return new RetResult<List<GoodsCategoryVo>>(200,"成功",goodsCategoryVos);
     }
 
     @Override

@@ -16,4 +16,5 @@ public class Goods {
     String time;//上市年份季度
     String color;
     String age;//适合的年龄段
+    Integer categoryId;
 }
