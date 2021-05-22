@@ -35,9 +35,8 @@ public class GoodsServiceImpl implements GoodsService {
         Goods goods = goodsMapper.selectGoodsById(id);
         //获取商品图片
         List<Image> images = imageMapper.getImagesByGoodsId(goods.getId());
-        return new RetResult<>(200, "成功",new ConcreteGoodsVo(goods,images));
+        return new RetResult<>(200,"成功",new ConcreteGoodsVo(goods,images));
     }
-
 
     /**
      * 根据类别id获取size个商品，然后将每个商品的id，name，price，image封装成一个简单商品类，

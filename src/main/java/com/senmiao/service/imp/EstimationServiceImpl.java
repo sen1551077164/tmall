@@ -8,6 +8,7 @@ import com.senmiao.domain.Vo.EstimationVo;
 import com.senmiao.mapper.EstimationMapper;
 import com.senmiao.mapper.UserMapper;
 import com.senmiao.service.EstimationService;
+import com.senmiao.util.MyPageInfo;
 import com.senmiao.util.RetResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,14 @@ public class EstimationServiceImpl implements EstimationService {
         PageHelper.startPage(page,size);
         //获取评论
         List<Estimation> estimations = estimationMapper.selectEstimationByGoodsId(id);
+        //用于获取分页信息
+        PageInfo<Estimation> estimationPageInfo = new PageInfo<>(estimations);
+        //将分页信息赋值给工具类的MyPageInfo
+        MyPageInfo<EstimationVo> estimationVoPageInfo = new MyPageInfo<>(estimationPageInfo);
         ArrayList<EstimationVo> estimationVos = new ArrayList<>(estimations.size());
         estimations.forEach(e->{
             Integer userId = e.getUserId();
             User user =  userMapper.selectById(userId);
-
             EstimationVo estimationVo = new EstimationVo();
             estimationVo.setContent(e.getContent());
             estimationVo.setId(e.getId());
@@ -60,8 +64,7 @@ public class EstimationServiceImpl implements EstimationService {
                 estimationVo.setNickname(stringBuilder.toString());
             }
         });
-        PageInfo<EstimationVo> estimationVoPageInfo = new PageInfo<>();
         estimationVoPageInfo.setList(estimationVos);
-        return new RetResult<PageInfo<EstimationVo>>(200,"成功",estimationVoPageInfo);
+        return new RetResult<>(200,"成功",estimationVoPageInfo);
     }
 }

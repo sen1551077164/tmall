@@ -16,6 +16,13 @@
         <package name="com.senmiao.domain"/>
     </typeAliases>
 
+    <!--pageHelper-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--<property name="helperdialect" value="mysql"/>-->
+        </plugin>
+    </plugins>
+
     <mappers>
         <!--
         	一个mapper指定一个文件的位置。
