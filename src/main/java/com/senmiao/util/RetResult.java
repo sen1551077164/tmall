@@ -9,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class RetResult<T> {
     int code;
-    T data;
     String msg;
+    T data;
 }
