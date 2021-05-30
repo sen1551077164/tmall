@@ -30,6 +30,16 @@ public class GoodsController {
         return goodsService.getConcreteGoodsById(id);
     }
 
+    @ApiOperation(value = "通过商品名称模糊搜索获取商品的详细信息",notes = "通过商品名称模糊搜索获取商品的详细信息")
+    @ApiImplicitParams(
+            {@ApiImplicitParam(name = "name",value = "商品名")}
+    )
+    @PostMapping("/getConcreteGoods/{name}/{page}/{size}")
+    public Object getConcreteGoodsByName(@PathVariable String name,@PathVariable Integer page,@PathVariable Integer size){
+        return goodsService.getConcreteGoodsByName(name,page,size);
+    }
+
+
     @ApiOperation(value = "通过类别id获取商品的简要信息",notes = "通过类别id获取商品的简要信息")
     @ApiImplicitParams(
             {@ApiImplicitParam(name = "id",value = "类别id"),

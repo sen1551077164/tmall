@@ -20,4 +20,10 @@ public interface GoodsMapper {
             ",color,age,discount,category_id as categoryId from goods " +
             "where id = #{id} order by id desc")
     Goods selectGoodsById(Integer id);
+
+    @Select("select id,name,price,description" +
+            ",stock,material,brand,size,time" +
+            ",color,age,discount,category_id as categoryId from goods " +
+            "where name like concat('%',#{name},'%') order by id desc")
+    List<Goods> selectGoodsByName(String name);
 }

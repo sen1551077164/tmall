@@ -74,4 +74,35 @@ public class GoodsServiceImpl implements GoodsService {
         }
         return result;
     }
+
+    /**
+     * 根据商品名模糊查询商品
+     * @param name 关键字
+     * @param page 页码
+     * @param size 数量
+     * @return 商品 + 商品图片
+     */
+    @Override
+    public RetResult getConcreteGoodsByName(String name, Integer page, Integer size) {
+        //分页
+        PageHelper.startPage(page,size);
+        //获取商品
+        List<Goods> goods = goodsMapper.selectGoodsByName(name);
+        PageInfo<Goods> goodsPageInfo = new PageInfo<>(goods);
+        MyPageInfo<ConcreteGoodsVo> concreteGoodsVoMyPageInfo = new MyPageInfo<>(goodsPageInfo);
+        ArrayList<ConcreteGoodsVo> concreteGoodsVos = new ArrayList<>();//保存商品信息和图片的列表
+        //获取每个商品的图片，并将商品和图片整合到一个列表里面
+        for (Goods good : goods) {
+            Integer id = good.getId();
+            List<Image> images = imageMapper.getImagesByGoodsId(id);
+            ConcreteGoodsVo concreteGoodsVo = new ConcreteGoodsVo();
+            concreteGoodsVo.setImages(images);
+            concreteGoodsVo.setGoods(good);
+            concreteGoodsVos.add(concreteGoodsVo);
+        }
+        concreteGoodsVoMyPageInfo.setList(concreteGoodsVos);
+        return new RetResult<>(200, "成功", concreteGoodsVoMyPageInfo);
+    }
+
+
 }
